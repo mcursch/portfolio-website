@@ -1,76 +1,9 @@
-html,
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    Fira Sans,
-    Droid Sans,
-    Helvetica Neue,
-    sans-serif;
-  line-height: 1.6;
-  font-size: 18px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-
-.typingcontainer .typingtext{
-  position: relative;
-  color: #4070F4;
-  font-size: 70px;
-  font-weight:600;
-}
-
-.typingcontainer .typingtext.typingfirsttext {
-  color:white;
-}
-
-.typingcontainer .typingtext.typingsecondtext:before {
-  content: "";
-  position: absolute;
-  top:0;
-  left:0;
-  height: 100%;
-  width: 100%;
-  background-color: #010718;
-  border-left: 2px solid white;
-  animation: animate 4s steps(12) infinite;
-}
-@keyframes animate{
-  40%, 60% {
-    left: 100%;
-  }
-  100% {
-    left:0%;
-  }
-}
-
-.testThing {
-  background-color: red;
-  height: 20px;
-  width: 20px;
-  font-size: 60px;
+  background-color: green;
+  height: 100vh;
+  width: 100vw;
 }
