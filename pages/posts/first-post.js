@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import Script from 'next/script';
+import Typewriter from 'typewriter-effect'
 
 export default function FirstPost() {
     return (
@@ -18,14 +19,29 @@ export default function FirstPost() {
         <h2>
             <Link href="/">Back to home</Link>
         </h2>
-        
+{/*         
         <div className="typingbody">
           <div className="typingcontainer">
             <span className="typingtext typingsecondtext">hello</span> 
           </div>
 
-        </div>
+        </div> */}
+        {/* <div className="testThing">hello world</div> */}
 
+        <div className="testThing">
+            <Typewriter
+                className="testThing"
+                options = {{
+                    strings: ['Hello', 'World'],
+                    autoStart: true,
+                    loop: true
+                }}
+            />
+
+
+        </div>
+    
+    
 
     </>
     );
