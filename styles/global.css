@@ -2,8 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: green;
-  height: 100vh;
+html, body {
+  background-color: #010718;
+  height: 2000px;
   width: 100vw;
+  max-width: 100%;
+  background-color: green;
+}
+
+.animateFadeIn {
+  animation-duration: 1s;
+  animation-name: fade-in-animation;
+}
+
+.animateFadeOut {
+  animation-duration: 1s;
+  animation-name: fade-out-animation;
+}
+
+.fade-element {
+  opacity:1;
+  background-color: red;
+  transition: opacity 2s ease;
+}
+
+@keyframes fade-in-animation {
+  0% {
+    opacity: 0;
+
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out-animation {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

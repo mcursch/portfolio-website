@@ -4,12 +4,36 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import Typewriter from 'typewriter-effect'
+import Skillgrid from '../components/Skillgrid';
+import {useRef, useEffect, useState} from 'react'
+import { document } from 'postcss';
 export default function Home() {
+  const bottomOfPageRef = useRef();
+  const topOfPageRef = useRef();
+  const [bottomElementVisible, setBottomElementVisible] = useState();
+  const [topElementVisible, setTopElementVisble] = useState();
+
+  useEffect(()=> {
+
+    const observer1 = new IntersectionObserver((entries) => {
+      const entry = entries[0]
+      if(window.scrollY < 1300) {
+        setBottomElementVisible(entry.isIntersecting)
+      }
+
+    })
+    const observer2 = new IntersectionObserver((entries) => {
+      const entry = entries[0]
+      setTopElementVisble(entry.isIntersecting)
+    })
+    observer1.observe(bottomOfPageRef.current)
+    observer2.observe(topOfPageRef.current)
+  }, [])
   return (
     <>
-    <div className="overflow-x-hidden h-screen w-screen bg-[#010718] ">
-      <Navbar/>
-      <div className="h-screen  w-100vw bg-[#010718] text-white font-serif " >
+    <div className=" h-full w-full bg-[#010718] ">
+      <Navbar isTopVisible={topElementVisible} isBotVisible={bottomElementVisible}/>
+      <div className="h-screen  w-full bg-[#010718] text-white font-serif " >
         <div className="h-full w-full flex flex-col  justify-center pl-40 pb-40 ">
           <div className="h-fit w-full   text-8.5xl ">
             Matt Curschman
@@ -32,6 +56,8 @@ export default function Home() {
             </div>
            
           </div>
+          <div ref={topOfPageRef}></div>
+
 
         </div>
           
@@ -39,7 +65,8 @@ export default function Home() {
         
 
       </div>
-      <div className="h-screen bg-[#111] mx-auto flex font-serif">
+
+      <div  className="h-screen bg-[#111] mx-auto flex font-serif">
         <div className="  h-full w-full flex justify-center items-center">
           <Image
           className="rounded-full"
@@ -59,7 +86,9 @@ export default function Home() {
           is a Parsing application designed to parse large Google Sheets documents, extrapolate their data,and store it
           in a database, where it can then be accessed as an API backend, queried for further information, or have
           subsequent operations ran on it (Conflux Parser).
-          {'\n'}{'\n'}
+          <div  ref={bottomOfPageRef}>
+          </div>
+          {'\n'}
           My current side projects are a  lexicographic parser designed to parse and read mathematical equations and provide
           their derivative (derivApp), and a personal tracker (Myday)
           {'\n'}{'\n'}
@@ -72,9 +101,10 @@ export default function Home() {
 
         
       </div>
-
-      <div className="h-screen bg-[#eee]">
-        skill
+      <div   className="h-screen bg-[#eee]">
+        <div className="pt-20">
+          <Skillgrid/>
+        </div>
       </div>
 
 

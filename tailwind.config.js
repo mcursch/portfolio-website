@@ -20,7 +20,15 @@ module.exports = {
       '7xl': '4.5rem',
       '8.5xl': '7rem'
     },
-    extend: {},
+    extend: {
+      keyframs: {
+        faderino: {
+          '0%': { opacity: 100},
+          '100%' : {opacity: 0}
+
+        }
+      }
+    },
   },
   plugins: [],
 }
