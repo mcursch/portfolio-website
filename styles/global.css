@@ -4,10 +4,9 @@
 
 html, body {
   background-color: #010718;
-  height: 2000px;
+  height: 3000px;
   width: 100vw;
   max-width: 100%;
-  background-color: green;
 }
 
 .animateFadeIn {

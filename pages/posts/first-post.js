@@ -15,9 +15,27 @@ export default function FirstPost() {
 
     return (
         <>
-        <div className="h-[200rem] bg-black">
-            hello
+        <div className="h-[200rem] bg-blue-500">
+            <div className="h-40 flex items-center justify-center">
+                <div className="h-20 w-20 bg-white">
+                    <div class="w-full h-full relative">
+                    <div class="w-full h-full absolute ">
+                        <div className="h-full w-full flex justify-center items-center">
+                            hello
+                        </div>
+                    </div>
+                    <div className="h-full w-full  absolute">
+                    <div className="h-full w-full flex justify-center items-center opacity-0 bg-black/80 hover:opacity-100 duration-300">
+                            goodbye
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+        
+        
 
     </>
     );

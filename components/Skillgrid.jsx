@@ -14,7 +14,6 @@ export default function Skillgrid() {
                 <Skillimage link="vue.webp" name="Vue"/>
                 <Skillimage link="react.png" name="React"/>
                 <Skillimage link="next.svg" name="Next"/>
-
             </Skillcard>
             <Skillcard title="Programming Languages">
                 <Skillimage  link="cppimage.png" name="C++" />
@@ -41,8 +40,6 @@ export default function Skillgrid() {
             </Skillcard>
             <Skillcard title="CMS">
             <Skillimage  link="drupal.png" name="Drupal"/>
-        
-
             </Skillcard>
           
         </div>
