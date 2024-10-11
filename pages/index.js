@@ -15,7 +15,7 @@ export default function Home() {
   const [bottomElementVisible, setBottomElementVisible] = useState();
 
   useEffect(()=> {
-
+    
     const observer1 = new IntersectionObserver((entries) => {
       const entry = entries[0]
       if(window.scrollY < 1300) {
@@ -28,6 +28,7 @@ export default function Home() {
   }, [])
   return (
     <>
+
     <div className=" h-full w-full bg-[#010718] ">
       <Navbar isBotVisible={bottomElementVisible}/>
       <div className="h-screen  w-full bg-[#010718] text-white font-serif " >
@@ -105,7 +106,7 @@ export default function Home() {
                   Skills
                 </div>
                 <Underline color="black"/>
-                <div class="flex-1  w-full">
+                <div className="flex-1  w-full">
                   <div className="pt-5">
                     <Skillgrid/>
                   </div>
@@ -121,7 +122,7 @@ export default function Home() {
             Projects
           </div>
           <Underline color="white"/>
-          <div class="flex-1 w-full">
+          <div className="flex-1 w-full">
             <Projectgrid/>
 
           </div>

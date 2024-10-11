@@ -1,4 +1,5 @@
 import React, {useEffect, useRef } from 'react';
+import { BsDownload} from 'react-icons/bs'
 export default function Navbar({isBotVisible}) {
 
 
@@ -50,8 +51,8 @@ export default function Navbar({isBotVisible}) {
                             </li>
                         </button>
                         <button>
-                            <li className="inline-block py-2 px-5 mx-4 mb-2 border border-2 border-white bg-[#4070F4] rounded-full hover:bg-[#2050D2]">
-                                Resume ↓
+                            <li className="inline-block py-2 px-5 mx-4 mb-2 border border-2 border-white bg-[#4070F4] rounded-full hover:bg-[#2050D2] flex">
+                                Resume <BsDownload className="text-xl ml-2" />
                             </li>
                         </button>
                     </ul>
