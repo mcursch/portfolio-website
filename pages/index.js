@@ -9,6 +9,7 @@ import Skillgrid from '../components/Skillgrid';
 import {useRef, useEffect, useState} from 'react'
 import { document } from 'postcss';
 import Underline from '../components/Underline';
+import Projectgrid from '../components/Projectgrid';
 export default function Home() {
   const bottomOfPageRef = useRef();
   const [bottomElementVisible, setBottomElementVisible] = useState();
@@ -120,8 +121,9 @@ export default function Home() {
             Projects
           </div>
           <Underline color="white"/>
-          <div>
-            
+          <div class="flex-1 w-full">
+            <Projectgrid/>
+
           </div>
 
 
