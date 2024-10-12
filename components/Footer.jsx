@@ -13,14 +13,10 @@ export default function Footer () {
                 <div className="h-full w-full  flex justify-center">
                     <div className="h-4/5 w-full flex flex-col ">
                         <div className="w-full flex justify-center">
-                        <button className="text-white" onclick="window.location.href='mailto:example@example.com';">Send Email</button>
-
                             <a href="mailto:mattcurschman@gmail.com" className="h-[4rem] w-[13rem] border-white border border-[2px] rounded-md
                             bg-[#4070F4] flex justify-center items-center text-white font-bold text-xl  mt-10 flex">
                                 Email Me <BsEnvelope className="ml-2 text-3xl mt-1"/>
                             </a>
-                        
-                            
                         </div>
                         
                         <div className=" w-full  text-4xl font-serif font-bold text-white my-[2rem] flex justify-center">

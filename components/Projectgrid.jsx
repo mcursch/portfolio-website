@@ -4,7 +4,7 @@ export default function Projectgrid() {
         <div className="h-full w-full flex justify-center items-center">
             
             <div className="h-3/4 w-5/6  text-black">
-                <div class="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                     
                     <Projectcard title="Deri" image="math.jpg">
                         Object Oriented Programming combined with lexical analysis and token parsing to generate the derivative of a given equation.
