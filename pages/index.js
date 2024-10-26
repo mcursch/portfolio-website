@@ -123,7 +123,7 @@ export default function Home() {
           </div>
           <Underline color="white"/>
           <div className="flex-1 w-full">
-            <Projectgrid/>
+            // <Projectgrid/>
 
           </div>
 
