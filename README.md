@@ -1,1 +1,3 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+This is my portfolio website
+
+This project was built in exclusive JavaScript, utilizing Next.JS, a framework for React.
