@@ -1,57 +1,116 @@
 import Head from "next/head"
+import Link from "next/link"
+import { useState } from "react"
+import emailjs from "@emailjs/browser"
 import Underline from "../components/Underline"
-import {useEffect} from "react"
-export default function email() {
-    useEffect(() => {
-        emailjs.init({
-            publicKey: 'VRl9fnCYraFWFVAX3'
-          })
-    },[])
-    const sendEmail = () => {
-        console.log('hello')
+
+const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+
+export default function EmailPage() {
+    const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" })
+    const [status, setStatus] = useState("idle") // idle | sending | success | error
+
+    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+
+    const sendEmail = async (e) => {
+        e.preventDefault()
+        setStatus("sending")
+        try {
+            await emailjs.send(
+                SERVICE_ID,
+                TEMPLATE_ID,
+                {
+                    from_name: form.name,
+                    from_email: form.email,
+                    subject: form.subject,
+                    message: form.message,
+                },
+                { publicKey: PUBLIC_KEY }
+            )
+            setStatus("success")
+            setForm({ name: "", email: "", subject: "", message: "" })
+        } catch {
+            setStatus("error")
+        }
     }
+
+    const inputClass =
+        "bg-[#010718] text-[#4070F4] border-2 border-[#4070F4] w-2/3 h-12 rounded-full px-5 my-3 placeholder-[#4070F4]/50 focus:outline-none focus:border-blue-300"
+
     return (
         <>
-                <Head>
-            <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-        </script>
-        </Head>
-        <div>
-            <div className="h-screen w-full flex justify-center items-center">
-                
-                <div className="h-5/6 w-1/2">
-                    <form className="h-full flex flex-col ">
-                    <div className="h-20 w-full text-white bg-red-600 flex justify-center items-center">
-                        <div class="flex justify-center items-center">
-                            Warning!!! This part of the site is currently down for matinence (10/11/2024) and non-functional.If you would like to send me an email please email 
-                            <div className="font-bold  text-black pl-1">
-                                {"mattcurschman@gmail.com"}
-                            </div>
+            <Head>
+                <title>Contact | Portfolio</title>
+            </Head>
+            <div className="min-h-screen w-full flex justify-center items-center dark:bg-[#010718] bg-gray-50">
+                <div className="w-full max-w-xl px-4">
+                    <form onSubmit={sendEmail} className="flex flex-col items-center">
+                        <div className="w-full flex justify-center font-bold text-3xl font-serif dark:text-white text-gray-900 pt-6">
+                            Email Form
                         </div>
-                    </div>
+                        <Underline color="white" />
 
-                        <div className="w-full flex justify-center items-end h-14 text-white font-serif font-bold text-2xl">Email Form</div>
-                        <Underline color="white"/>
+                        <div className="flex flex-col w-full items-center mt-4">
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Name"
+                                value={form.name}
+                                onChange={handleChange}
+                                required
+                                className={inputClass}
+                            />
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                value={form.email}
+                                onChange={handleChange}
+                                required
+                                className={inputClass}
+                            />
+                            <input
+                                type="text"
+                                name="subject"
+                                placeholder="Subject"
+                                value={form.subject}
+                                onChange={handleChange}
+                                required
+                                className={inputClass}
+                            />
+                            <textarea
+                                name="message"
+                                placeholder="Message"
+                                value={form.message}
+                                onChange={handleChange}
+                                required
+                                className="bg-[#010718] text-[#4070F4] border-2 border-[#4070F4] w-2/3 h-48 rounded-xl px-5 pt-4 my-3 placeholder-[#4070F4]/50 focus:outline-none focus:border-blue-300 resize-none"
+                            />
 
-                        <div className="flex flex-col h-full justify-center items-center">
-                            <input type="text" placeholder="Name"
-                            className="bg-[#010718] text-[#4070F4] border border-2 border-[#4070F4] w-2/3 h-12 rounded-full px-5 my-4" />
-                            <input type="text" placeholder="Email"
-                            className="bg-[#010718] text-[#4070F4] border border-2 border-[#4070F4] w-2/3 h-12 rounded-full px-5 my-4" />
-                            <input type="text" placeholder="Subject"
-                            className="bg-[#010718] text-[#4070F4] border border-2 border-[#4070F4] w-2/3 h-12 rounded-full px-5 my-4" />
-                            <textarea type="text" placeholder="Content"
-                            className="bg-[#010718] text-[#4070F4] border border-2 border-[#4070F4] w-2/3 h-[20rem] rounded-xl px-5 pt-5 flex justify-start items-start my-4 " />
-                            <button type="button" className="text-white bg-[#4070F4] h-10 w-[10rem] rounded-full"  onClick={() => sendEmail()} >Send Email</button>
+                            {status === "success" && (
+                                <p className="text-green-400 mb-2">Message sent! I&apos;ll be in touch soon.</p>
+                            )}
+                            {status === "error" && (
+                                <p className="text-red-400 mb-2">Something went wrong. Please try again.</p>
+                            )}
+
+                            <button
+                                type="submit"
+                                disabled={status === "sending"}
+                                className="text-white bg-[#4070F4] h-10 w-40 rounded-full mt-2 mb-6 disabled:opacity-60 hover:bg-blue-500 transition-colors"
+                            >
+                                {status === "sending" ? "Sending..." : "Send Email"}
+                            </button>
                         </div>
-                        
+
+                        <Link href="/" className="text-[#4070F4] text-sm hover:underline mb-8">
+                            ← Back to portfolio
+                        </Link>
                     </form>
                 </div>
             </div>
-        </div>
         </>
-
     )
-
 }
