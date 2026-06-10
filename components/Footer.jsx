@@ -5,7 +5,7 @@ import { BsFacebook, BsLinkedin, BsGithub, BsEnvelope } from "react-icons/bs"
 
 export default function Footer() {
     return (
-        <div className="h-[30rem] w-full dark:bg-[#111] bg-gray-100">
+        <div className="min-h-[30rem] w-full dark:bg-[#111] bg-gray-100 pb-8">
             <div className="h-full w-full flex flex-col">
                 <div className="w-full flex justify-center font-bold text-4xl font-serif dark:text-white text-gray-900 pt-6">
                     Contact Me
@@ -20,11 +20,11 @@ export default function Footer() {
                             </Link>
                         </div>
 
-                        <div className="w-full text-4xl font-serif font-bold dark:text-white text-gray-900 my-[2rem] flex justify-center">
-                            <div className="w-1/3 flex justify-end">
+                        <div className="w-full text-2xl sm:text-4xl font-serif font-bold dark:text-white text-gray-900 my-8 flex flex-col sm:flex-row justify-center items-center text-center sm:text-left gap-1 sm:gap-0 px-4">
+                            <div className="sm:w-1/3 sm:flex sm:justify-end">
                                 Together, we can
                             </div>
-                            <div className="pl-4 w-1/3 text-[#4070F4]">
+                            <div className="sm:pl-4 sm:w-1/3 text-[#4070F4] min-h-[2rem]">
                                 <Typewriter
                                     options={{
                                         strings: ['Make A Difference', 'Shape The Future', 'Change The World'],

@@ -108,11 +108,11 @@ export default function Skillgrid() {
     const isDark = mounted && resolvedTheme === 'dark'
 
     return (
-        <div className="grid grid-cols-2 gap-x-16 gap-y-10 px-20 py-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 sm:gap-x-16 gap-y-8 sm:gap-y-10 px-5 sm:px-10 md:px-20 py-6">
             {categories.map(({ title, skills }, i) => (
                 <div
                     key={title}
-                    className={i === categories.length - 1 && categories.length % 2 !== 0 ? 'col-span-2' : ''}
+                    className={i === categories.length - 1 && categories.length % 2 !== 0 ? 'sm:col-span-2' : ''}
                 >
                     <h3 className="text-sm font-bold uppercase tracking-widest dark:text-gray-400 text-gray-500 mb-3">
                         {title}
