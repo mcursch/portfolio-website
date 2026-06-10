@@ -31,15 +31,15 @@ export default function Home() {
 
         {/* Hero */}
         <div className="h-screen w-full dark:bg-[#010718] bg-white dark:text-white text-gray-900 font-serif">
-          <div className="h-full w-full flex flex-col justify-center pl-40 pb-40">
-            <div className="h-fit w-full text-8.5xl">
+          <div className="h-full w-full flex flex-col justify-center px-6 md:pl-40 pb-20 md:pb-40">
+            <div className="h-fit w-full text-4xl md:text-8xl lg:text-8.5xl">
               Matt Curschman
             </div>
             <div className="flex flex-row">
-              <div className="h-40 w-fit text-7xl pl-20">
+              <div className="h-16 md:h-40 w-fit text-3xl md:text-7xl pl-4 md:pl-20">
                 I am a
               </div>
-              <div className="text-7xl pl-4 text-[#4070F4]">
+              <div className="text-3xl md:text-7xl pl-4 text-[#4070F4]">
                 <Typewriter
                   options={{
                     strings: ['Computer Engineer', 'Software Developer', 'Fullstack Creator'],
@@ -59,10 +59,10 @@ export default function Home() {
           </div>
           <Underline />
           <div className="flex-1 flex items-center">
-            <div className="max-w-5xl mx-auto w-full px-12 py-12 flex flex-row items-center gap-16">
+            <div className="max-w-5xl mx-auto w-full px-6 md:px-12 py-12 flex flex-col md:flex-row items-center gap-8 md:gap-16">
               <div className="flex-shrink-0 flex justify-center">
                 <Image
-                  className="rounded-full shadow-lg"
+                  className="rounded-full shadow-lg w-48 h-48 md:w-[380px] md:h-[380px]"
                   src="/images/picture.png"
                   width={380}
                   height={380}
@@ -113,14 +113,14 @@ export default function Home() {
         </div>
 
         {/* Projects */}
-        <div id="projects" className="h-screen dark:bg-[#111] bg-gray-100 dark:text-white text-gray-900">
+        <div id="projects" className="min-h-screen dark:bg-[#111] bg-gray-100 dark:text-white text-gray-900">
           <div className="h-full w-full flex flex-col items-center">
             <div className="h-[8rem] flex items-end font-serif text-4xl">
               Projects
             </div>
             <Underline />
             <div className="flex-1 w-full">
-              {/* <Projectgrid /> */}
+              <Projectgrid />
             </div>
           </div>
         </div>
