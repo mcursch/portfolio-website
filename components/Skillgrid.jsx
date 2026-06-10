@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import {
     SiHtml5, SiCss3, SiTailwindcss,
@@ -102,7 +103,9 @@ function Chip({ name, Icon, color, isDark }) {
 
 export default function Skillgrid() {
     const { resolvedTheme } = useTheme()
-    const isDark = resolvedTheme === 'dark'
+    const [mounted, setMounted] = useState(false)
+    useEffect(() => { setMounted(true) }, [])
+    const isDark = mounted && resolvedTheme === 'dark'
 
     return (
         <div className="grid grid-cols-2 gap-x-16 gap-y-10 px-20 py-6">
