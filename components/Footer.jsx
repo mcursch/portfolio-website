@@ -1,3 +1,4 @@
+import Link from "next/link"
 import Underline from "./Underline"
 import Typewriter from 'typewriter-effect'
 import { BsFacebook, BsLinkedin, BsGithub, BsEnvelope } from "react-icons/bs"
@@ -13,10 +14,10 @@ export default function Footer() {
                 <div className="h-full w-full flex justify-center">
                     <div className="h-4/5 w-full flex flex-col">
                         <div className="w-full flex justify-center">
-                            <a href="mailto:mattcurschman@gmail.com" className="h-[4rem] w-[13rem] border-white border border-[2px] rounded-md
+                            <Link href="/email" className="h-[4rem] w-[13rem] border-white border border-[2px] rounded-md
                             bg-[#4070F4] flex justify-center items-center text-white font-bold text-xl mt-10">
                                 Email Me <BsEnvelope className="ml-2 text-3xl mt-1" />
-                            </a>
+                            </Link>
                         </div>
 
                         <div className="w-full text-4xl font-serif font-bold dark:text-white text-gray-900 my-[2rem] flex justify-center">
