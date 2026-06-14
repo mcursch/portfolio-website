@@ -23,13 +23,29 @@ module.exports = {
       '8.5xl': '7rem'
     },
     extend: {
-      keyframs: {
-        faderino: {
-          '0%': { opacity: 100},
-          '100%' : {opacity: 0}
-
-        }
-      }
+      colors: {
+        accent: '#4070F4',
+        'accent-hover': '#2050D2',
+        // Page surfaces — only two per theme, alternated across sections
+        base: '#ffffff',
+        'base-dark': '#010718',
+        panel: '#f3f4f6',
+        'panel-dark': '#0b1426',
+      },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        'menu-in': {
+          '0%': { opacity: '0', transform: 'translateY(-8px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 1s ease forwards',
+        'menu-in': 'menu-in 0.18s ease-out',
+      },
     },
   },
   plugins: [],

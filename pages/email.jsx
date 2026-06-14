@@ -2,7 +2,7 @@ import Head from "next/head"
 import Link from "next/link"
 import { useState } from "react"
 import emailjs from "@emailjs/browser"
-import Underline from "../components/Underline"
+import SectionHeading from "../components/SectionHeading"
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
@@ -11,12 +11,21 @@ const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
 export default function EmailPage() {
     const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" })
     const [status, setStatus] = useState("idle") // idle | sending | success | error
+    const [errorMsg, setErrorMsg] = useState("")
 
     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
     const sendEmail = async (e) => {
         e.preventDefault()
         setStatus("sending")
+        setErrorMsg("")
+
+        if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
+            setErrorMsg("Email is not configured (missing EmailJS environment variables).")
+            setStatus("error")
+            return
+        }
+
         try {
             await emailjs.send(
                 SERVICE_ID,
@@ -24,6 +33,7 @@ export default function EmailPage() {
                 {
                     from_name: form.name,
                     from_email: form.email,
+                    reply_to: form.email,
                     subject: form.subject,
                     message: form.message,
                 },
@@ -31,26 +41,27 @@ export default function EmailPage() {
             )
             setStatus("success")
             setForm({ name: "", email: "", subject: "", message: "" })
-        } catch {
+        } catch (err) {
+            // EmailJS rejects with { status, text } — surface the real reason.
+            console.error("EmailJS send failed:", err)
+            const detail = err?.text || err?.message || "Unknown error"
+            setErrorMsg(`Couldn't send (${err?.status ?? "?"}): ${detail}`)
             setStatus("error")
         }
     }
 
     const inputClass =
-        "bg-[#010718] text-[#4070F4] border-2 border-[#4070F4] w-2/3 h-12 rounded-full px-5 my-3 placeholder-[#4070F4]/50 focus:outline-none focus:border-blue-300"
+        "bg-white dark:bg-base-dark text-gray-900 dark:text-white border-2 border-accent w-2/3 h-12 rounded-full px-5 my-3 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-accent-hover"
 
     return (
         <>
             <Head>
                 <title>Contact | Portfolio</title>
             </Head>
-            <div className="min-h-screen w-full flex justify-center items-center dark:bg-[#010718] bg-gray-50">
+            <div className="min-h-screen w-full flex justify-center items-center bg-base dark:bg-base-dark">
                 <div className="w-full max-w-xl px-4">
                     <form onSubmit={sendEmail} className="flex flex-col items-center">
-                        <div className="w-full flex justify-center font-bold text-3xl font-serif dark:text-white text-gray-900 pt-6">
-                            Email Form
-                        </div>
-                        <Underline color="white" />
+                        <SectionHeading>Email Form</SectionHeading>
 
                         <div className="flex flex-col w-full items-center mt-4">
                             <input
@@ -86,26 +97,28 @@ export default function EmailPage() {
                                 value={form.message}
                                 onChange={handleChange}
                                 required
-                                className="bg-[#010718] text-[#4070F4] border-2 border-[#4070F4] w-2/3 h-48 rounded-xl px-5 pt-4 my-3 placeholder-[#4070F4]/50 focus:outline-none focus:border-blue-300 resize-none"
+                                className="bg-white dark:bg-base-dark text-gray-900 dark:text-white border-2 border-accent w-2/3 h-48 rounded-xl px-5 pt-4 my-3 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-accent-hover resize-none"
                             />
 
                             {status === "success" && (
                                 <p className="text-green-400 mb-2">Message sent! I&apos;ll be in touch soon.</p>
                             )}
                             {status === "error" && (
-                                <p className="text-red-400 mb-2">Something went wrong. Please try again.</p>
+                                <p className="text-red-400 mb-2 text-center px-4 break-words">
+                                    {errorMsg || "Something went wrong. Please try again."}
+                                </p>
                             )}
 
                             <button
                                 type="submit"
                                 disabled={status === "sending"}
-                                className="text-white bg-[#4070F4] h-10 w-40 rounded-full mt-2 mb-6 disabled:opacity-60 hover:bg-blue-500 transition-colors"
+                                className="text-white bg-accent h-10 w-40 rounded-full mt-2 mb-6 disabled:opacity-60 hover:bg-accent-hover transition-colors"
                             >
                                 {status === "sending" ? "Sending..." : "Send Email"}
                             </button>
                         </div>
 
-                        <Link href="/" className="text-[#4070F4] text-sm hover:underline mb-8">
+                        <Link href="/" className="text-accent text-sm hover:underline mb-8">
                             ← Back to portfolio
                         </Link>
                     </form>

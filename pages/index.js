@@ -1,45 +1,44 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
-import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Typewriter from 'typewriter-effect'
 import Skillgrid from '../components/Skillgrid';
-import { useRef, useEffect, useState } from 'react'
-import Underline from '../components/Underline';
+import SectionHeading from '../components/SectionHeading';
 import Projectgrid from '../components/Projectgrid';
+import ShaderBackground from '../components/ShaderBackground';
+import Container from '../components/Container';
 
 export default function Home() {
-  const bottomOfPageRef = useRef();
-  const [bottomElementVisible, setBottomElementVisible] = useState();
-
-  useEffect(() => {
-    const observer1 = new IntersectionObserver((entries) => {
-      const entry = entries[0]
-      if (window.scrollY < 1300) {
-        setBottomElementVisible(entry.isIntersecting)
-      }
-    })
-    observer1.observe(bottomOfPageRef.current)
-  }, [])
-
   return (
     <>
-      <div className="h-full w-full dark:bg-[#010718] bg-white">
-        <Navbar isBotVisible={bottomElementVisible} />
+      <Head>
+        <title>Matt Curschman — Computer Engineer & Software Developer</title>
+        <meta name="description" content="Portfolio of Matt Curschman, a full-stack software developer and computer engineer." />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <div className="h-full w-full bg-base dark:bg-base-dark">
+        <Navbar />
 
         {/* Hero */}
-        <div className="h-screen w-full dark:bg-[#010718] bg-white dark:text-white text-gray-900 font-serif">
-          <div className="h-full w-full flex flex-col justify-center px-6 md:pl-40 pb-20 md:pb-40">
-            <div className="h-fit w-full text-4xl md:text-8xl lg:text-8.5xl">
+        <div className="relative h-screen w-full overflow-hidden font-serif">
+          {/* Animated shader background */}
+          <div className="absolute inset-0 z-0">
+            <ShaderBackground />
+          </div>
+          {/* Legibility scrim — keeps text readable over the shader in both themes */}
+          <div className="absolute inset-0 z-0 bg-black/30 dark:bg-black/30" />
+
+          <div className="relative z-10 h-full w-full flex flex-col justify-center px-6 md:pl-40 pb-20 md:pb-40 text-white">
+            <div className="h-fit w-full text-5xl sm:text-6xl md:text-8xl lg:text-8.5xl drop-shadow-lg break-words">
               Matt Curschman
             </div>
-            <div className="flex flex-row">
-              <div className="h-16 md:h-40 w-fit text-3xl md:text-7xl pl-4 md:pl-20">
+            <div className="mt-2 flex flex-col md:flex-row md:items-baseline">
+              <div className="text-2xl sm:text-4xl md:text-7xl md:pl-20 drop-shadow-lg">
                 I am a
               </div>
-              <div className="text-3xl md:text-7xl pl-4 text-[#4070F4]">
+              <div className="text-2xl sm:text-4xl md:text-7xl md:pl-4 text-accent drop-shadow-lg min-h-[2.5rem] md:min-h-[5rem] break-words">
                 <Typewriter
                   options={{
                     strings: ['Computer Engineer', 'Software Developer', 'Fullstack Creator'],
@@ -53,13 +52,10 @@ export default function Home() {
         </div>
 
         {/* About */}
-        <div id="about-me" className="min-h-screen dark:bg-[#111] bg-gray-100 font-serif flex flex-col">
-          <div className="pt-16 pb-4 w-full flex justify-center dark:text-white text-gray-900 text-4xl">
-            About Me
-          </div>
-          <Underline />
+        <div id="about-me" className="min-h-screen bg-panel dark:bg-panel-dark font-serif flex flex-col">
+          <SectionHeading>About Me</SectionHeading>
           <div className="flex-1 flex items-center">
-            <div className="max-w-5xl mx-auto w-full px-6 md:px-12 py-12 flex flex-col md:flex-row items-center gap-8 md:gap-16">
+            <Container className="py-12 flex flex-col md:flex-row items-center gap-8 md:gap-16">
               <div className="flex-shrink-0 flex justify-center">
                 <Image
                   className="rounded-full shadow-lg w-48 h-48 md:w-[380px] md:h-[380px]"
@@ -91,37 +87,28 @@ export default function Home() {
                   Outside of engineering: Eagle Scout, Black Belt in Karate, piano player, and artist.
                   My favorite subjects are Computer Science, Math, and Art.
                 </p>
-                <div ref={bottomOfPageRef} />
               </div>
-            </div>
+            </Container>
           </div>
         </div>
 
         {/* Skills */}
-        <div id="skills" className="min-h-screen dark:bg-slate-800 bg-[#eee]">
+        <div id="skills" className="min-h-screen bg-base dark:bg-base-dark">
           <div className="h-full w-full flex flex-col items-center">
-            <div className="h-[8rem] flex items-end font-serif text-4xl dark:text-white text-gray-900">
-              Skills
-            </div>
-            <Underline />
-            <div className="flex-1 w-full">
-              <div className="pt-5">
-                <Skillgrid />
-              </div>
-            </div>
+            <SectionHeading>Skills</SectionHeading>
+            <Container className="flex-1 pt-5">
+              <Skillgrid />
+            </Container>
           </div>
         </div>
 
         {/* Projects */}
-        <div id="projects" className="min-h-screen dark:bg-[#111] bg-gray-100 dark:text-white text-gray-900">
+        <div id="projects" className="min-h-screen bg-panel dark:bg-panel-dark dark:text-white text-gray-900">
           <div className="h-full w-full flex flex-col items-center">
-            <div className="h-[8rem] flex items-end font-serif text-4xl">
-              Projects
-            </div>
-            <Underline />
-            <div className="flex-1 w-full">
+            <SectionHeading>Projects</SectionHeading>
+            <Container className="flex-1">
               <Projectgrid />
-            </div>
+            </Container>
           </div>
         </div>
 
