@@ -4,8 +4,11 @@
 
 html, body {
   min-height: 100%;
-  width: 100vw;
+  width: 100%;
   max-width: 100%;
+  /* `clip` prevents horizontal scroll WITHOUT creating a scroll container,
+     so it doesn't break `position: sticky` on the navbar (which `hidden` does). */
+  overflow-x: clip;
 }
 
 html.theme-transition,
@@ -13,39 +16,4 @@ html.theme-transition *,
 html.theme-transition *::before,
 html.theme-transition *::after {
   transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, fill 0.5s ease, transform 0.3s ease !important;
-}
-
-.animateFadeIn {
-  animation-duration: 1s;
-  animation-name: fade-in-animation;
-}
-
-.animateFadeOut {
-  animation-duration: 1s;
-  animation-name: fade-out-animation;
-}
-
-.fade-element {
-  opacity:1;
-  background-color: red;
-  transition: opacity 2s ease;
-}
-
-@keyframes fade-in-animation {
-  0% {
-    opacity: 0;
-
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out-animation {
-  0% {
-    opacity:1;
-  }
-  100% {
-    opacity: 0;
-  }
 }

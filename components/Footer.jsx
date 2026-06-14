@@ -1,22 +1,18 @@
 import Link from "next/link"
-import Underline from "./Underline"
+import SectionHeading from "./SectionHeading"
 import Typewriter from 'typewriter-effect'
-import { BsFacebook, BsLinkedin, BsGithub, BsEnvelope } from "react-icons/bs"
+import { BsLinkedin, BsGithub, BsEnvelope } from "react-icons/bs"
 
 export default function Footer() {
     return (
-        <div className="min-h-[30rem] w-full dark:bg-[#111] bg-gray-100 pb-8">
+        <div className="min-h-[30rem] w-full bg-base dark:bg-base-dark pb-8">
             <div className="h-full w-full flex flex-col">
-                <div className="w-full flex justify-center font-bold text-4xl font-serif dark:text-white text-gray-900 pt-6">
-                    Contact Me
-                </div>
-                <Underline />
+                <SectionHeading>Contact Me</SectionHeading>
                 <div className="h-full w-full flex justify-center">
                     <div className="h-4/5 w-full flex flex-col">
                         <div className="w-full flex justify-center">
-                            <Link href="/email" className="h-[4rem] w-[13rem] border-white border border-[2px] rounded-md
-                            bg-[#4070F4] flex justify-center items-center text-white font-bold text-xl mt-10">
-                                Email Me <BsEnvelope className="ml-2 text-3xl mt-1" />
+                            <Link href="/email" className="inline-flex items-center gap-2 px-8 py-3 mt-10 rounded-full bg-accent text-white font-semibold text-lg shadow-sm hover:bg-accent-hover transition-colors">
+                                Email Me <BsEnvelope className="text-xl" />
                             </Link>
                         </div>
 
@@ -24,7 +20,7 @@ export default function Footer() {
                             <div className="sm:w-1/3 sm:flex sm:justify-end">
                                 Together, we can
                             </div>
-                            <div className="sm:pl-4 sm:w-1/3 text-[#4070F4] min-h-[2rem]">
+                            <div className="sm:pl-4 sm:w-1/3 text-accent min-h-[2rem]">
                                 <Typewriter
                                     options={{
                                         strings: ['Make A Difference', 'Shape The Future', 'Change The World'],
@@ -37,11 +33,6 @@ export default function Footer() {
 
                         <div className="h-full flex justify-center items-center">
                             <ul className="flex mx-2">
-                                <li className="px-4 text-4xl dark:text-gray-400 text-gray-600">
-                                    <a href="https://www.facebook.com/matthew.curschman" target="_blank" rel="noreferrer">
-                                        <BsFacebook />
-                                    </a>
-                                </li>
                                 <li className="px-4 text-4xl dark:text-gray-400 text-gray-600">
                                     <a href="https://www.linkedin.com/in/matthewcurschman/" target="_blank" rel="noreferrer">
                                         <BsLinkedin />

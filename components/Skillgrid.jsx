@@ -94,7 +94,7 @@ function resolveColor(hex, isDark) {
 function Chip({ name, Icon, color, isDark }) {
     const iconColor = resolveColor(color, isDark)
     return (
-        <div className="flex items-center gap-2.5 px-4 py-2 rounded-full border dark:border-gray-600 border-gray-300 dark:bg-gray-700/40 bg-white text-base font-medium dark:text-gray-200 text-gray-700 hover:border-[#4070F4] transition-colors cursor-default select-none">
+        <div className="flex items-center gap-2.5 px-4 py-2 rounded-full border dark:border-gray-600 border-gray-300 dark:bg-gray-700/40 bg-white text-base font-medium dark:text-gray-200 text-gray-700 hover:border-accent transition-colors cursor-default select-none">
             <Icon style={{ color: iconColor }} className="text-xl flex-shrink-0" />
             <span>{name}</span>
         </div>
@@ -108,7 +108,7 @@ export default function Skillgrid() {
     const isDark = mounted && resolvedTheme === 'dark'
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 sm:gap-x-16 gap-y-8 sm:gap-y-10 px-5 sm:px-10 md:px-20 py-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8 py-6">
             {categories.map(({ title, skills }, i) => (
                 <div
                     key={title}
