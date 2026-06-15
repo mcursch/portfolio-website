@@ -14,28 +14,36 @@ const projects = [
     {
         title: "Conductor",
         subtitle: "AI-Enhanced Development Tool",
+        image: "conductor.png",
         link: "https://github.com/mcursch",
+        demo: "/videos/conductor.mp4",
         description:
             "An AI-enhanced development tool that orchestrates and accelerates day-to-day coding workflows.",
     },
     {
         title: "Kime",
         subtitle: "Computer Vision Martial-Arts Trainer",
+        image: "kime.png",
         link: "https://github.com/mcursch",
+        demo: "/videos/kime.mp4",
         description:
             "A computer-vision pipeline that analyzes martial-arts technique from video to coach and correct form.",
     },
     {
         title: "RoomRadar",
         subtitle: "AI-Enhanced Hospitality Web Scraper",
+        image: "roomradar.png",
         link: "https://github.com/mcursch",
+        demo: "/videos/roomradar.mp4",
         description:
             "An AI-enhanced web scraper for the hospitality industry that aggregates and surfaces lodging data.",
     },
     {
         title: "Querious",
         subtitle: "AI Chatbot",
+        image: "querious.png",
         link: "https://github.com/mcursch",
+        demo: "/videos/querious.mp4",
         description:
             "A conversational AI chatbot for natural-language question answering.",
     },

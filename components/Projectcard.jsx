@@ -1,6 +1,9 @@
 import Image from "next/image"
+import { useState } from "react"
+import VideoModal from "./VideoModal"
 
 export default function Projectcard({ title, subtitle, image, link, demo, children }) {
+    const [demoOpen, setDemoOpen] = useState(false)
     return (
         <div className="group relative flex flex-col sm:block w-[90vw] sm:w-[28rem] max-w-[28rem] sm:h-[22rem] rounded-2xl overflow-hidden shadow-lg cursor-pointer">
 
@@ -38,17 +41,25 @@ export default function Projectcard({ title, subtitle, image, link, demo, childr
                         </a>
                     )}
                     {demo && (
-                        <a
-                            href={demo}
-                            target="_blank"
-                            rel="noreferrer"
+                        <button
+                            type="button"
+                            onClick={() => setDemoOpen(true)}
                             className="px-5 py-1.5 rounded-full border border-accent text-accent text-sm hover:bg-accent hover:text-white transition-colors"
                         >
                             View Demo
-                        </a>
+                        </button>
                     )}
                 </div>
             </div>
+
+            {demo && (
+                <VideoModal
+                    open={demoOpen}
+                    src={demo}
+                    title={title}
+                    onClose={() => setDemoOpen(false)}
+                />
+            )}
         </div>
     )
 }
