@@ -11,6 +11,7 @@ import {
 } from 'react-icons/si'
 import { BsDatabase, BsCodeSlash } from 'react-icons/bs'
 import { FaJava } from 'react-icons/fa'
+import Reveal from './Reveal'
 
 const categories = [
     {
@@ -91,11 +92,18 @@ function resolveColor(hex, isDark) {
     return luminance < 0.12 ? '#e5e7eb' : hex
 }
 
+// Chip lifts and picks up a glow tinted with the technology's own brand colour.
 function Chip({ name, Icon, color, isDark }) {
-    const iconColor = resolveColor(color, isDark)
+    const c = resolveColor(color, isDark)
     return (
-        <div className="flex items-center gap-2.5 px-4 py-2 rounded-full border dark:border-gray-600 border-gray-300 dark:bg-gray-700/40 bg-white text-base font-medium dark:text-gray-200 text-gray-700 hover:border-accent transition-colors cursor-default select-none">
-            <Icon style={{ color: iconColor }} className="text-xl flex-shrink-0" />
+        <div
+            style={{ '--c': c }}
+            className="group/chip flex cursor-default select-none items-center gap-2.5 rounded-full border border-gray-300 bg-white/80 px-4 py-2 text-base font-medium text-gray-700 backdrop-blur-sm transition-all duration-300 ease-spring hover:-translate-y-1 hover:border-[var(--c)] hover:shadow-[0_8px_24px_-8px_var(--c)] dark:border-white/10 dark:bg-white/5 dark:text-gray-200"
+        >
+            <Icon
+                style={{ color: c }}
+                className="flex-shrink-0 text-xl transition-transform duration-300 ease-spring group-hover/chip:scale-125 group-hover/chip:rotate-6"
+            />
             <span>{name}</span>
         </div>
     )
@@ -108,22 +116,29 @@ export default function Skillgrid() {
     const isDark = mounted && resolvedTheme === 'dark'
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8 py-6">
+        <div className="grid grid-cols-1 items-start gap-6 py-6 sm:grid-cols-2">
             {categories.map(({ title, skills }, i) => (
-                <div
+                <Reveal
                     key={title}
+                    delay={i * 70}
+                    from={i % 2 === 0 ? 'left' : 'right'}
                     className={i === categories.length - 1 && categories.length % 2 !== 0 ? 'sm:col-span-2' : ''}
                 >
-                    <h3 className="text-sm font-bold uppercase tracking-widest dark:text-gray-400 text-gray-500 mb-3">
-                        {title}
-                    </h3>
-                    <div className="h-px dark:bg-gray-600 bg-gray-300 mb-4" />
-                    <div className="flex flex-wrap gap-2">
-                        {skills.map((skill) => (
-                            <Chip key={skill.name} {...skill} isDark={isDark} />
-                        ))}
+                    <div className="rounded-2xl border border-gray-200 bg-white/60 p-5 backdrop-blur-sm transition-colors duration-500 hover:border-accent/40 dark:border-white/5 dark:bg-white/[0.03]">
+                        <div className="mb-4 flex items-center gap-3">
+                            <span className="h-2 w-2 rounded-full" style={{ background: 'var(--brand-gradient)' }} />
+                            <h3 className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-gray-500 dark:text-gray-400">
+                                {title}
+                            </h3>
+                            <span className="h-px flex-1 bg-gradient-to-r from-gray-300 to-transparent dark:from-white/10" />
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            {skills.map((skill) => (
+                                <Chip key={skill.name} {...skill} isDark={isDark} />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </Reveal>
             ))}
         </div>
     )

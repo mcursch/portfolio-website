@@ -24,27 +24,37 @@ export default function VideoModal({ open, src, title, onClose }) {
 
     return createPortal(
         <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+            className="animate-fade-in fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md [animation-duration:250ms]"
             onClick={onClose}
             role="dialog"
             aria-modal="true"
             aria-label={title ? `${title} demo video` : "Demo video"}
         >
-            <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-                <button
-                    onClick={onClose}
-                    aria-label="Close demo"
-                    className="absolute -top-11 right-0 text-4xl text-white/80 hover:text-white transition-colors"
-                >
-                    <BsX />
-                </button>
+            {/* Scales up as it fades in so the video feels like it opens *from*
+                the card rather than just appearing. */}
+            <div
+                className="animate-pop-in relative w-full max-w-4xl opacity-0"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="mb-3 flex items-center justify-between">
+                    {title && (
+                        <h3 className="font-serif text-lg text-white/90">{title}</h3>
+                    )}
+                    <button
+                        onClick={onClose}
+                        aria-label="Close demo"
+                        className="ml-auto flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-3xl text-white/80 transition-all duration-300 ease-spring hover:rotate-90 hover:border-white hover:text-white"
+                    >
+                        <BsX />
+                    </button>
+                </div>
                 <video
                     key={src}
                     src={src}
                     controls
                     autoPlay
                     playsInline
-                    className="w-full max-h-[80vh] rounded-xl bg-black shadow-2xl"
+                    className="max-h-[80vh] w-full rounded-2xl bg-black shadow-2xl ring-1 ring-white/10"
                 />
             </div>
         </div>,

@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------ *
+ * Design tokens
+ * ------------------------------------------------------------------ */
+:root {
+  --accent: #4f7dff;
+  --accent-2: #a855f7;
+  --accent-3: #22d3ee;
+  --brand-gradient: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 45%, var(--accent-3) 100%);
+  --ring: rgb(79 125 255 / 0.55);
+}
+
 html, body {
   min-height: 100%;
   width: 100%;
@@ -11,9 +22,220 @@ html, body {
   overflow-x: clip;
 }
 
+html {
+  scroll-behavior: smooth;
+  /* Anchored sections stop below the fixed navbar instead of under it. */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(79 125 255 / 0.35);
+  color: inherit;
+}
+
+/* Slim, themed scrollbar. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(79 125 255 / 0.5) transparent;
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgb(79 125 255 / 0.4);
+  border-radius: 99px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover { background: rgb(79 125 255 / 0.7); background-clip: content-box; }
+
+/* One consistent keyboard-focus ring everywhere. */
+:where(a, button, input, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 html.theme-transition,
 html.theme-transition *,
 html.theme-transition *::before,
 html.theme-transition *::after {
   transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, fill 0.5s ease, transform 0.3s ease !important;
+}
+
+/* ------------------------------------------------------------------ *
+ * Scroll reveal — driven by IntersectionObserver in <Reveal />.
+ * Elements start displaced + blurred and settle when they enter view.
+ * ------------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translate3d(var(--reveal-x, 0), var(--reveal-y, 28px), 0) scale(var(--reveal-scale, 1));
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+.reveal.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* ------------------------------------------------------------------ *
+ * Text treatments
+ * ------------------------------------------------------------------ */
+.text-gradient {
+  background: var(--brand-gradient);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient-animate {
+  background: var(--brand-gradient);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 7s ease infinite;
+}
+
+/* Hero name: each letter rises in on its own beat. Letters are grouped inside
+   per-word wrappers (so the name never breaks mid-word), hence the class
+   rather than a direct-child selector. */
+.letter-rise .letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em) rotate(4deg);
+  animation: letter-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes letter-in {
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+/* ------------------------------------------------------------------ *
+ * Surfaces
+ * ------------------------------------------------------------------ */
+.glass {
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+}
+
+/* Card that draws a soft brand-gradient hairline border via two layers. */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--brand-gradient);
+  background-size: 200% auto;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+.gradient-border:hover::before,
+.gradient-border:focus-within::before {
+  opacity: 1;
+  animation: gradient-pan 4s ease infinite;
+}
+
+/* Radial glow that tracks the cursor. --mx/--my are set from JS. */
+.spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(79 125 255 / 0.22),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+.spotlight:hover::after { opacity: 1; }
+
+/* Diagonal light sweep, triggered on hover of the parent. */
+.shine-host { position: relative; overflow: hidden; }
+.shine-host::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.35), transparent);
+  transform: translateX(-140%) skewX(-18deg);
+  pointer-events: none;
+}
+.shine-host:hover::after {
+  animation: shine 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Very light film grain, layered over the hero to kill gradient banding. */
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Fades a horizontally-scrolling strip out at both edges. */
+.edge-fade {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Animated underline for inline links. */
+.link-underline {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover { background-size: 100% 2px; }
+
+/* Tilt wrapper — JS writes --rx/--ry; the transition only runs on reset. */
+.tilt {
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
+  transform-style: preserve-3d;
+}
+
+/* ------------------------------------------------------------------ *
+ * Motion accessibility — every decorative motion collapses to nothing.
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal { opacity: 1; filter: none; transform: none; }
+  .letter-rise .letter { opacity: 1; transform: none; }
+  .tilt { transform: none; }
 }
