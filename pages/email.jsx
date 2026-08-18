@@ -2,11 +2,20 @@ import Head from "next/head"
 import Link from "next/link"
 import { useState } from "react"
 import emailjs from "@emailjs/browser"
+import { BsArrowLeft, BsSend, BsCheckCircleFill, BsExclamationCircleFill } from "react-icons/bs"
 import SectionHeading from "../components/SectionHeading"
+import Reveal from "../components/Reveal"
+import AmbientOrbs from "../components/AmbientOrbs"
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+
+const fields = [
+    { name: "name", label: "Name", type: "text" },
+    { name: "email", label: "Email", type: "email" },
+    { name: "subject", label: "Subject", type: "text" },
+]
 
 export default function EmailPage() {
     const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" })
@@ -50,78 +59,110 @@ export default function EmailPage() {
         }
     }
 
+    // Floating-label input: the label sits inside the field and lifts into the
+    // border once the field has content or focus (`peer` + `placeholder-shown`).
     const inputClass =
-        "bg-white dark:bg-base-dark text-gray-900 dark:text-white border-2 border-accent w-2/3 h-12 rounded-full px-5 my-3 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-accent-hover"
+        "peer w-full rounded-2xl border border-gray-300 bg-white/70 px-5 pb-3 pt-6 text-gray-900 outline-none backdrop-blur-sm transition-all duration-300 placeholder-transparent focus:border-accent focus:shadow-glow dark:border-white/10 dark:bg-white/5 dark:text-white"
+    const labelClass =
+        "pointer-events-none absolute left-5 top-4 origin-left text-gray-500 transition-all duration-300 peer-focus:top-2 peer-focus:text-xs peer-focus:text-accent peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-xs dark:text-gray-400"
 
     return (
         <>
             <Head>
-                <title>Contact | Portfolio</title>
+                <title>Contact | Matt Curschman</title>
             </Head>
-            <div className="min-h-screen w-full flex justify-center items-center bg-base dark:bg-base-dark">
-                <div className="w-full max-w-xl px-4">
-                    <form onSubmit={sendEmail} className="flex flex-col items-center">
-                        <SectionHeading>Email Form</SectionHeading>
+            <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-base py-16 dark:bg-base-dark">
+                <AmbientOrbs variant="a" />
 
-                        <div className="flex flex-col w-full items-center mt-4">
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Name"
-                                value={form.name}
-                                onChange={handleChange}
-                                required
-                                className={inputClass}
-                            />
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email"
-                                value={form.email}
-                                onChange={handleChange}
-                                required
-                                className={inputClass}
-                            />
-                            <input
-                                type="text"
-                                name="subject"
-                                placeholder="Subject"
-                                value={form.subject}
-                                onChange={handleChange}
-                                required
-                                className={inputClass}
-                            />
-                            <textarea
-                                name="message"
-                                placeholder="Message"
-                                value={form.message}
-                                onChange={handleChange}
-                                required
-                                className="bg-white dark:bg-base-dark text-gray-900 dark:text-white border-2 border-accent w-2/3 h-48 rounded-xl px-5 pt-4 my-3 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-accent-hover resize-none"
-                            />
-
-                            {status === "success" && (
-                                <p className="text-green-400 mb-2">Message sent! I&apos;ll be in touch soon.</p>
-                            )}
-                            {status === "error" && (
-                                <p className="text-red-400 mb-2 text-center px-4 break-words">
-                                    {errorMsg || "Something went wrong. Please try again."}
-                                </p>
-                            )}
-
-                            <button
-                                type="submit"
-                                disabled={status === "sending"}
-                                className="text-white bg-accent h-10 w-40 rounded-full mt-2 mb-6 disabled:opacity-60 hover:bg-accent-hover transition-colors"
-                            >
-                                {status === "sending" ? "Sending..." : "Send Email"}
-                            </button>
-                        </div>
-
-                        <Link href="/" className="text-accent text-sm hover:underline mb-8">
-                            ← Back to portfolio
+                <div className="relative w-full max-w-2xl px-6">
+                    <Reveal from="down">
+                        <Link
+                            href="/"
+                            className="group inline-flex items-center gap-2 text-sm text-gray-500 transition-colors duration-300 hover:text-accent dark:text-gray-400"
+                        >
+                            <BsArrowLeft className="transition-transform duration-300 group-hover:-translate-x-1" />
+                            Back to portfolio
                         </Link>
-                    </form>
+                    </Reveal>
+
+                    <SectionHeading eyebrow="Drop me a line" className="pt-8">
+                        Get In Touch
+                    </SectionHeading>
+
+                    <Reveal from="scale">
+                        <form
+                            onSubmit={sendEmail}
+                            className="gradient-border rounded-3xl border border-gray-200 bg-white/60 p-6 backdrop-blur-sm dark:border-white/5 dark:bg-white/[0.03] sm:p-9"
+                        >
+                            <div className="flex flex-col gap-5">
+                                {fields.map(({ name, label, type }) => (
+                                    <div key={name} className="relative">
+                                        <input
+                                            id={name}
+                                            type={type}
+                                            name={name}
+                                            placeholder={label}
+                                            value={form[name]}
+                                            onChange={handleChange}
+                                            required
+                                            className={inputClass}
+                                        />
+                                        <label htmlFor={name} className={labelClass}>
+                                            {label}
+                                        </label>
+                                    </div>
+                                ))}
+
+                                <div className="relative">
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        placeholder="Message"
+                                        value={form.message}
+                                        onChange={handleChange}
+                                        required
+                                        rows={6}
+                                        className={`${inputClass} resize-none`}
+                                    />
+                                    <label htmlFor="message" className={labelClass}>
+                                        Message
+                                    </label>
+                                </div>
+
+                                {status === "success" && (
+                                    <p className="animate-rise-in flex items-center gap-2 text-emerald-500 opacity-0">
+                                        <BsCheckCircleFill /> Message sent! I&apos;ll be in touch soon.
+                                    </p>
+                                )}
+                                {status === "error" && (
+                                    <p className="animate-rise-in flex items-start gap-2 break-words text-red-400 opacity-0">
+                                        <BsExclamationCircleFill className="mt-1 flex-shrink-0" />
+                                        {errorMsg || "Something went wrong. Please try again."}
+                                    </p>
+                                )}
+
+                                <div className="flex justify-center pt-2">
+                                    <button
+                                        type="submit"
+                                        disabled={status === "sending"}
+                                        className="shine-host inline-flex items-center gap-2 rounded-full px-8 py-3.5 font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
+                                        style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
+                                    >
+                                        {status === "sending" ? (
+                                            <>
+                                                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                                                Sending…
+                                            </>
+                                        ) : (
+                                            <>
+                                                Send Email <BsSend />
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </Reveal>
                 </div>
             </div>
         </>

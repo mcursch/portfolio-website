@@ -2,7 +2,7 @@
 // its content through this so the whole site shares one consistent gutter/width.
 export default function Container({ className = '', children }) {
     return (
-        <div className={`w-full max-w-5xl mx-auto px-6 ${className}`}>
+        <div className={`w-full max-w-6xl mx-auto px-6 ${className}`}>
             {children}
         </div>
     )

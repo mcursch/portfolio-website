@@ -1,7 +1,12 @@
-export default function Underline() {
+// Brand-gradient rule used under section headings. Grows out from the centre
+// when its <Reveal> parent becomes visible.
+export default function Underline({ className = '' }) {
     return (
-        <div className="w-full h-[3px] flex items-center justify-center">
-            <div className="h-[3px] w-2/3 dark:bg-white bg-gray-700 rounded-full mb-2" />
+        <div className={`flex items-center justify-center ${className}`}>
+            <span
+                className="block h-[3px] w-24 rounded-full"
+                style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
+            />
         </div>
     )
 }

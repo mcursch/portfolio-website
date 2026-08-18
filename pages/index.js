@@ -1,13 +1,17 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import Typewriter from 'typewriter-effect'
-import Skillgrid from '../components/Skillgrid';
-import SectionHeading from '../components/SectionHeading';
-import Projectgrid from '../components/Projectgrid';
-import ShaderBackground from '../components/ShaderBackground';
-import Container from '../components/Container';
+import Head from 'next/head'
+import Image from 'next/image'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import Hero from '../components/Hero'
+import Skillgrid from '../components/Skillgrid'
+import SectionHeading from '../components/SectionHeading'
+import Projectgrid from '../components/Projectgrid'
+import Container from '../components/Container'
+import Reveal from '../components/Reveal'
+import AmbientOrbs from '../components/AmbientOrbs'
+
+// Short, scannable facts that sit under the About copy.
+const facts = ['Eagle Scout', 'Karate Black Belt', 'Pianist', 'Artist', 'Go Gators 🐊']
 
 export default function Home() {
   return (
@@ -18,99 +22,105 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="h-full w-full bg-base dark:bg-base-dark">
+      <div className="w-full bg-base font-sans dark:bg-base-dark">
         <Navbar />
 
-        {/* Hero */}
-        <div className="relative h-screen w-full overflow-hidden font-serif">
-          {/* Animated shader background */}
-          <div className="absolute inset-0 z-0">
-            <ShaderBackground />
-          </div>
-          {/* Legibility scrim — keeps text readable over the shader in both themes */}
-          <div className="absolute inset-0 z-0 bg-black/30 dark:bg-black/30" />
-
-          <div className="relative z-10 h-full w-full flex flex-col justify-center px-6 md:pl-40 pb-20 md:pb-40 text-white">
-            <div className="h-fit w-full text-5xl sm:text-6xl md:text-8xl lg:text-8.5xl drop-shadow-lg break-words">
-              Matt Curschman
-            </div>
-            <div className="mt-2 flex flex-col md:flex-row md:items-baseline">
-              <div className="text-2xl sm:text-4xl md:text-7xl md:pl-20 drop-shadow-lg">
-                I am a
-              </div>
-              <div className="text-2xl sm:text-4xl md:text-7xl md:pl-4 text-accent drop-shadow-lg min-h-[2.5rem] md:min-h-[5rem] break-words">
-                <Typewriter
-                  options={{
-                    strings: ['Computer Engineer', 'Software Developer', 'Fullstack Creator'],
-                    autoStart: true,
-                    loop: true
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <Hero />
 
         {/* About */}
-        <div id="about-me" className="min-h-screen bg-panel dark:bg-panel-dark font-serif flex flex-col">
-          <SectionHeading>About Me</SectionHeading>
-          <div className="flex-1 flex items-center">
-            <Container className="py-12 flex flex-col md:flex-row items-center gap-8 md:gap-16">
-              <div className="flex-shrink-0 flex justify-center">
-                <Image
-                  className="rounded-full shadow-lg w-48 h-48 md:w-[380px] md:h-[380px]"
-                  src="/images/picture.png"
-                  width={380}
-                  height={380}
-                  alt="Matt Curschman"
-                />
-              </div>
-              <div className="flex-1 space-y-5 text-lg leading-relaxed dark:text-gray-300 text-gray-700">
-                <p className="text-2xl font-semibold dark:text-white text-gray-900">
-                  Hi, I'm Matthew Curschman.
-                </p>
-                <p>
-                  I have a degree in Computer Engineering from the University of Florida. Go Gators!
-                </p>
-                <p>
-                  I currently work as a Full-Stack Web Developer with a heavy lean on back-end technologies.
-                  I have experience with database creation, parsing, integration, and utilization on large-scale
-                  projects. My current work project is Conflux Parser — an application that parses large Google
-                  Sheets documents, extrapolates their data, and stores it in a database for API access and
-                  downstream querying.
-                </p>
-                <p>
-                  On the side I'm building derivApp, a lexicographic parser for mathematical derivatives, and
-                  Myday, a personal tracker.
-                </p>
-                <p>
-                  Outside of engineering: Eagle Scout, Black Belt in Karate, piano player, and artist.
-                  My favorite subjects are Computer Science, Math, and Art.
-                </p>
+        <section id="about-me" className="relative overflow-hidden bg-panel dark:bg-panel-dark">
+          <AmbientOrbs variant="a" />
+          <div className="relative">
+            <SectionHeading eyebrow="Who I am">About Me</SectionHeading>
+
+            <Container className="flex flex-col items-center gap-10 pb-24 md:flex-row md:items-start md:gap-16">
+              {/* Portrait: gradient halo behind, slow-spinning ring around */}
+              <Reveal from="left" className="flex-shrink-0">
+                <div className="group relative mx-auto h-56 w-56 md:h-80 md:w-80">
+                  <div
+                    className="absolute -inset-3 animate-spin-slow rounded-full opacity-70 blur-md transition-opacity duration-500 group-hover:opacity-100"
+                    style={{ background: 'conic-gradient(from 0deg, var(--accent), var(--accent-2), var(--accent-3), var(--accent))' }}
+                  />
+                  <Image
+                    className="relative h-full w-full rounded-full object-cover shadow-2xl transition-transform duration-500 ease-spring group-hover:scale-[1.03]"
+                    src="/images/picture.png"
+                    width={380}
+                    height={380}
+                    alt="Matt Curschman"
+                  />
+                </div>
+              </Reveal>
+
+              <div className="flex-1 space-y-5 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                <Reveal from="right" delay={80}>
+                  <p className="font-serif text-3xl font-semibold text-gray-900 dark:text-white">
+                    Hi, I&apos;m <span className="text-gradient">Matthew Curschman</span>.
+                  </p>
+                </Reveal>
+
+                <Reveal from="right" delay={160}>
+                  <p>
+                    I have a degree in Computer Engineering from the University of Florida. Go Gators!
+                  </p>
+                </Reveal>
+
+                <Reveal from="right" delay={240}>
+                  <p>
+                    I currently work as a Full-Stack Web Developer with a heavy lean on back-end technologies.
+                    I have experience with database creation, parsing, integration, and utilization on large-scale
+                    projects. My current work project is <span className="font-semibold text-gray-900 dark:text-white">Conflux Parser</span> —
+                    an application that parses large Google Sheets documents, extrapolates their data, and stores
+                    it in a database for API access and downstream querying.
+                  </p>
+                </Reveal>
+
+                <Reveal from="right" delay={320}>
+                  <p>
+                    On the side I&apos;m building <span className="font-semibold text-gray-900 dark:text-white">derivApp</span>, a
+                    lexicographic parser for mathematical derivatives, and{' '}
+                    <span className="font-semibold text-gray-900 dark:text-white">Myday</span>, a personal tracker.
+                  </p>
+                </Reveal>
+
+                <Reveal from="right" delay={400}>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {facts.map((fact, i) => (
+                      <span
+                        key={fact}
+                        style={{ transitionDelay: `${i * 30}ms` }}
+                        className="rounded-full border border-gray-300 bg-white/70 px-3.5 py-1.5 font-mono text-xs uppercase tracking-wider text-gray-600 transition-all duration-300 ease-spring hover:-translate-y-0.5 hover:border-accent hover:text-accent dark:border-white/10 dark:bg-white/5 dark:text-gray-400"
+                      >
+                        {fact}
+                      </span>
+                    ))}
+                  </div>
+                </Reveal>
               </div>
             </Container>
           </div>
-        </div>
+        </section>
 
         {/* Skills */}
-        <div id="skills" className="min-h-screen bg-base dark:bg-base-dark">
-          <div className="h-full w-full flex flex-col items-center">
-            <SectionHeading>Skills</SectionHeading>
-            <Container className="flex-1 pt-5">
+        <section id="skills" className="relative overflow-hidden bg-base dark:bg-base-dark">
+          <AmbientOrbs variant="b" />
+          <div className="relative flex w-full flex-col items-center">
+            <SectionHeading eyebrow="What I work with">Skills</SectionHeading>
+            <Container className="pb-24">
               <Skillgrid />
             </Container>
           </div>
-        </div>
+        </section>
 
         {/* Projects */}
-        <div id="projects" className="min-h-screen bg-panel dark:bg-panel-dark dark:text-white text-gray-900">
-          <div className="h-full w-full flex flex-col items-center">
-            <SectionHeading>Projects</SectionHeading>
-            <Container className="flex-1">
+        <section id="projects" className="relative overflow-hidden bg-panel text-gray-900 dark:bg-panel-dark dark:text-white">
+          <AmbientOrbs variant="a" />
+          <div className="relative flex w-full flex-col items-center">
+            <SectionHeading eyebrow="Things I&rsquo;ve built">Projects</SectionHeading>
+            <Container className="pb-24">
               <Projectgrid />
             </Container>
           </div>
-        </div>
+        </section>
 
         {/* Contact */}
         <div id="contact">
@@ -118,5 +128,5 @@ export default function Home() {
         </div>
       </div>
     </>
-  );
+  )
 }
