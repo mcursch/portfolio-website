@@ -4,7 +4,6 @@ import { BsLinkedin, BsGithub, BsEnvelope, BsArrowUpRight, BsArrowUp } from 'rea
 import SectionHeading from './SectionHeading'
 import Container from './Container'
 import Reveal from './Reveal'
-import MagneticButton from './MagneticButton'
 import AmbientOrbs from './AmbientOrbs'
 
 const socials = [
@@ -42,26 +41,22 @@ export default function Footer() {
                             </p>
 
                             <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                                <MagneticButton strength={0.3}>
-                                    <Link
-                                        href="/email"
-                                        className="shine-host inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-lg font-semibold text-white shadow-glow transition-shadow duration-300 hover:shadow-glow-lg"
-                                        style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
-                                    >
-                                        Email Me <BsEnvelope className="text-xl" />
-                                    </Link>
-                                </MagneticButton>
+                                <Link
+                                    href="/email"
+                                    className="shine-host inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-lg font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg"
+                                    style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
+                                >
+                                    Email Me <BsEnvelope className="text-xl" />
+                                </Link>
 
-                                <MagneticButton strength={0.3}>
-                                    <a
-                                        href="/images/MatthewCurschmanResume.pdf"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-8 py-3.5 text-lg font-semibold text-gray-800 transition-colors duration-300 hover:border-accent hover:text-accent dark:border-white/15 dark:text-gray-200 dark:hover:border-accent dark:hover:text-accent"
-                                    >
-                                        Résumé <BsArrowUpRight className="text-base" />
-                                    </a>
-                                </MagneticButton>
+                                <a
+                                    href="/images/MatthewCurschmanResume.pdf"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-8 py-3.5 text-lg font-semibold text-gray-800 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent dark:border-white/15 dark:text-gray-200 dark:hover:border-accent dark:hover:text-accent"
+                                >
+                                    Résumé <BsArrowUpRight className="text-base" />
+                                </a>
                             </div>
 
                             {/* Socials — each icon lifts and lights up on hover */}

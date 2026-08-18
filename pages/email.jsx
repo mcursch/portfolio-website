@@ -6,7 +6,6 @@ import { BsArrowLeft, BsSend, BsCheckCircleFill, BsExclamationCircleFill } from 
 import SectionHeading from "../components/SectionHeading"
 import Reveal from "../components/Reveal"
 import AmbientOrbs from "../components/AmbientOrbs"
-import MagneticButton from "../components/MagneticButton"
 
 const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
@@ -143,25 +142,23 @@ export default function EmailPage() {
                                 )}
 
                                 <div className="flex justify-center pt-2">
-                                    <MagneticButton strength={0.3}>
-                                        <button
-                                            type="submit"
-                                            disabled={status === "sending"}
-                                            className="shine-host inline-flex items-center gap-2 rounded-full px-8 py-3.5 font-semibold text-white shadow-glow transition-all duration-300 hover:shadow-glow-lg disabled:cursor-not-allowed disabled:opacity-60"
-                                            style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
-                                        >
-                                            {status === "sending" ? (
-                                                <>
-                                                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
-                                                    Sending…
-                                                </>
-                                            ) : (
-                                                <>
-                                                    Send Email <BsSend />
-                                                </>
-                                            )}
-                                        </button>
-                                    </MagneticButton>
+                                    <button
+                                        type="submit"
+                                        disabled={status === "sending"}
+                                        className="shine-host inline-flex items-center gap-2 rounded-full px-8 py-3.5 font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
+                                        style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
+                                    >
+                                        {status === "sending" ? (
+                                            <>
+                                                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                                                Sending…
+                                            </>
+                                        ) : (
+                                            <>
+                                                Send Email <BsSend />
+                                            </>
+                                        )}
+                                    </button>
                                 </div>
                             </div>
                         </form>

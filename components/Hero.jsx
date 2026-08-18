@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react'
 import Typewriter from 'typewriter-effect'
 import { BsArrowDown, BsGithub, BsLinkedin, BsArrowUpRight } from 'react-icons/bs'
 import ShaderBackground from './ShaderBackground'
-import MagneticButton from './MagneticButton'
 
 const NAME = 'Matt Curschman'
 
@@ -110,24 +109,20 @@ export default function Hero() {
                     className="animate-rise-in mt-9 flex flex-wrap items-center gap-4 opacity-0"
                     style={{ animationDelay: '1300ms' }}
                 >
-                    <MagneticButton strength={0.3}>
-                        <a
-                            href="#projects"
-                            className="shine-host inline-flex items-center gap-2 rounded-full px-7 py-3 font-semibold text-white shadow-glow transition-shadow duration-300 hover:shadow-glow-lg"
-                            style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
-                        >
-                            See my work <BsArrowUpRight className="text-sm" />
-                        </a>
-                    </MagneticButton>
+                    <a
+                        href="#projects"
+                        className="shine-host inline-flex items-center gap-2 rounded-full px-7 py-3 font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg"
+                        style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
+                    >
+                        See my work <BsArrowUpRight className="text-sm" />
+                    </a>
 
-                    <MagneticButton strength={0.3}>
-                        <a
-                            href="#contact"
-                            className="glass inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3 font-semibold text-white transition-colors duration-300 hover:border-white hover:bg-white/20"
-                        >
-                            Get in touch
-                        </a>
-                    </MagneticButton>
+                    <a
+                        href="#contact"
+                        className="glass inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3 font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-white hover:bg-white/20"
+                    >
+                        Get in touch
+                    </a>
 
                     <div className="ml-1 flex items-center gap-2">
                         {[

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { BsDownload, BsList, BsX } from 'react-icons/bs'
 import ScrollProgress from './ScrollProgress'
-import MagneticButton from './MagneticButton'
 
 const navLinks = [
     { label: 'About', id: 'about-me' },
@@ -118,17 +117,15 @@ export default function Navbar() {
                                 </li>
                             ))}
                             <li className="ml-3">
-                                <MagneticButton strength={0.35}>
-                                    <a
-                                        href="/images/MatthewCurschmanResume.pdf"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="shine-host inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-white shadow-glow transition-shadow duration-300 hover:shadow-glow-lg"
-                                        style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
-                                    >
-                                        Résumé <BsDownload className="text-base" />
-                                    </a>
-                                </MagneticButton>
+                                <a
+                                    href="/images/MatthewCurschmanResume.pdf"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="shine-host inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-semibold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-lg"
+                                    style={{ background: 'var(--brand-gradient)', backgroundSize: '200% auto' }}
+                                >
+                                    Résumé <BsDownload className="text-base" />
+                                </a>
                             </li>
                         </ul>
                     </nav>
